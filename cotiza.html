@@ -129,7 +129,7 @@
 
 <!-- Botón adicional -->
 <div class="container text-center mt-4">
-    <a href="#" id="whatsappButton" class="btn btn-primary" target="_blank">ENVIAR MI COTIZACION A ESAFEPAY</a>
+    <a href="#" id="whatsappButton" class="btn btn-primary" target="_blank" disabled>ENVIAR MI COTIZACION A ESAFEPAY</a>
 </div>
 
     <!-- Footer Start -->
@@ -236,12 +236,12 @@
             document.getElementById("caseSpan").textContent = caseText;
         });
     </script>
-    <script>
-        document.getElementById("calculateButton").addEventListener("click", function () {
+<script>
+    document.getElementById("calculateButton").addEventListener("click", function () {
         var inputNumber = parseFloat(document.getElementById("inputNumber").value);
         var result = 0;
         var caseText = "";
-    
+
         if (inputNumber >= 0 && inputNumber <= 60) {
             result = inputNumber * (1 - 0.054) - 0.3;
             result *= (1 - 0.1175);
@@ -255,18 +255,21 @@
             result *= (1 - 0.0875);
             caseText = "PROFESSIONAL";
         }
-    
+
         document.getElementById("resultSpan").textContent = "Usted Recibe en su cuenta: " + result.toFixed(2) + "$";
         document.getElementById("caseSpan").textContent = caseText;
 
-        // Construir la URL de Facebook
+        // Habilitar el botón de WhatsApp
+        document.getElementById("whatsappButton").removeAttribute("disabled");
+
+        // Construir la URL de WhatsApp
         var whatsappMessage = "Hola! Quisiera agendar mi cambio. Mi cotización tiene las siguientes características: mi cambio " + caseText + " es de un valor de " + inputNumber + " y estoy dispuesto a recibir conforme a la comisión, un valor de " + result.toFixed(2) + " hacia mi cuenta bancaria.";
         var whatsappUrl = "https://api.whatsapp.com/send?phone=593962750514&text=" + encodeURIComponent(whatsappMessage);
 
         // Actualizar el enlace del botón a la URL de WhatsApp
         document.getElementById("whatsappButton").href = whatsappUrl;
     });
-    </script>
+</script>
 </body>
 
 </html>
